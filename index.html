@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Prism · Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #18232a;
+  --slate: #2e3f4d;
+  --slate-mid: #4a6070;
+  --slate-light: #7a9aae;
+  --ghost: #b8ccd6;
+  --rule: rgba(255,255,255,0.08);
+  --sage: #6e9e80;
+  --sage-dim: rgba(110,158,128,0.18);
+  --sage-border: rgba(110,158,128,0.35);
+  --rose: #b06070;
+  --surface: #1e2e38;
+  --surface-raised: #243644;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--ink);
+  font-family: 'Instrument Sans', sans-serif;
+  color: #c8dae4;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.login-container {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--slate-light);
+  margin-bottom: 8px;
+}
+
+.page-title {
+  font-family: 'Fraunces', serif;
+  font-size: 36px;
+  font-weight: 300;
+  color: #e8f0f4;
+  line-height: 1.05;
+  font-style: italic;
+  margin-bottom: 32px;
+}
+
+.page-title span {
+  color: var(--sage);
+  font-style: normal;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--slate-light);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.form-input {
+  width: 100%;
+  background: var(--surface-raised);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 14px;
+  color: #c8dae4;
+  outline: none;
+  transition: border-color .15s;
+}
+
+.form-input:focus {
+  border-color: var(--sage-border);
+}
+
+.form-input::placeholder {
+  color: var(--slate-mid);
+}
+
+.login-btn {
+  width: 100%;
+  background: var(--sage);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 22px;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .15s;
+  margin-top: 8px;
+}
+
+.login-btn:hover {
+  background: #5a8e6c;
+}
+
+.login-btn:active {
+  transform: scale(.98);
+}
+
+.error-message {
+  color: var(--rose);
+  font-size: 12px;
+  margin-top: 12px;
+  display: none;
+}
+
+.error-message.show {
+  display: block;
+}
+
+.footer-note {
+  margin-top: 24px;
+  font-size: 11px;
+  color: var(--slate-mid);
+}
+</style>
+</head>
+<body>
+
+<div class="login-container">
+  <p class="eyebrow">Clinician Portal</p>
+  <h1 class="page-title">Prompt <span>Prism</span></h1>
+
+  <form id="loginForm" onsubmit="return handleLogin(event)">
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-input" id="password" placeholder="Enter your access code" autocomplete="current-password">
+    </div>
+
+    <button type="submit" class="login-btn">Access Configuration Portal</button>
+
+    <p class="error-message" id="errorMsg">Invalid password. Please try again.</p>
+  </form>
+
+  <p class="footer-note">Authorized clinician access only</p>
+</div>
+
+<script>
+// Simple password protection - change this password as needed
+const VALID_PASSWORD = 'prism2024';
+
+function handleLogin(e) {
+  e.preventDefault();
+  const password = document.getElementById('password').value;
+  const errorMsg = document.getElementById('errorMsg');
+
+  if (password === VALID_PASSWORD) {
+    // Store auth in session
+    sessionStorage.setItem('prism_authenticated', 'true');
+    // Redirect to main app
+    window.location.href = 'app.html';
+  } else {
+    errorMsg.classList.add('show');
+    document.getElementById('password').value = '';
+    document.getElementById('password').focus();
+  }
+
+  return false;
+}
+
+// Check if already authenticated
+if (sessionStorage.getItem('prism_authenticated') === 'true') {
+  window.location.href = 'app.html';
+}
+</script>
+
+</body>
+</html>
