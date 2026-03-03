@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prompt Prism - Clinician Configuration</title>
+<title>Prompt Prism - Bridge to Agential Care</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -26,7 +26,9 @@
   --sky: #5a8fa8;
   --sky-dim: rgba(90,143,168,0.15);
   --sky-border: rgba(90,143,168,0.3);
-  --cream: #f5f0ea;
+  --violet: #8b7aa8;
+  --violet-dim: rgba(139,122,168,0.15);
+  --violet-border: rgba(139,122,168,0.35);
   --surface: #1e2e38;
   --surface-raised: #243644;
   --surface-top: #2c4052;
@@ -39,47 +41,51 @@ body {
   font-family: 'Instrument Sans', sans-serif;
   color: #c8dae4;
   min-height: 100vh;
-  padding: 44px 28px 72px;
 }
 
-/* ── HEADER ── */
-.header {
-  margin-bottom: 44px;
+/* ── TOP NAV ── */
+.top-nav {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
-.header-left {}
-.eyebrow {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: var(--slate-light);
-  margin-bottom: 8px;
+
+.nav-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
 }
-.page-title {
+
+.nav-title {
   font-family: 'Fraunces', serif;
-  font-size: 32px;
+  font-size: 22px;
   font-weight: 300;
   color: #e8f0f4;
-  line-height: 1.05;
   font-style: italic;
 }
-.page-title span {
-  color: var(--sage);
-  font-style: normal;
+.nav-title span { color: var(--sage); font-style: normal; }
+
+.nav-subtitle {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--slate-light);
 }
 
-.header-right {
+.nav-actions {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.logout-btn {
+.nav-btn {
   background: transparent;
   border: 1px solid var(--rule);
   border-radius: 8px;
@@ -92,53 +98,76 @@ body {
   cursor: pointer;
   transition: all .15s;
 }
-.logout-btn:hover {
-  border-color: var(--slate-light);
-  color: #fff;
-}
+.nav-btn:hover { border-color: var(--slate-light); color: #fff; }
 
-.client-chip {
+/* ── EXPERIENCE TABS ── */
+.exp-tabs {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  gap: 0;
   background: var(--surface-raised);
-  border: 1px solid var(--rule);
-  border-radius: 10px;
-  padding: 10px 16px;
+  border-bottom: 1px solid var(--rule);
+  overflow-x: auto;
 }
-.client-avatar {
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--sage) 0%, var(--sky) 100%);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 600; color: #fff;
-  flex-shrink: 0;
+
+.exp-tab {
+  flex: 1;
+  min-width: 200px;
+  padding: 18px 24px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  transition: all .18s;
+  text-align: left;
 }
-.client-info {}
-.client-name {
-  font-size: 13px; font-weight: 500; color: #e0eaf0;
-  line-height: 1;
+.exp-tab:hover { background: var(--surface-top); }
+.exp-tab.active {
+  background: var(--ink);
+  border-bottom-color: var(--sage);
 }
-.client-meta {
+
+.exp-tab-num {
   font-family: 'DM Mono', monospace;
-  font-size: 10px; color: var(--slate-light);
-  letter-spacing: .06em; margin-top: 3px;
+  font-size: 9px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--slate-mid);
+  margin-bottom: 4px;
+  display: block;
+}
+.exp-tab.active .exp-tab-num { color: var(--sage); }
+
+.exp-tab-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ghost);
+  margin-bottom: 2px;
+  display: block;
+}
+.exp-tab.active .exp-tab-title { color: #fff; }
+
+.exp-tab-desc {
+  font-size: 11px;
+  color: var(--slate-light);
+  display: block;
 }
 
-/* ── GRID ── */
-.prism-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto auto;
-  gap: 14px;
+/* ── EXPERIENCE CONTAINERS ── */
+.experience {
+  display: none;
+  padding: 32px 28px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
+.experience.active { display: block; }
 
-/* ── PANEL BASE ── */
+/* ── COMMON PANEL STYLES ── */
 .panel {
   background: var(--surface);
   border: 1px solid var(--rule);
   border-radius: 14px;
   overflow: hidden;
+  margin-bottom: 16px;
 }
 .panel-header {
   padding: 14px 20px;
@@ -155,282 +184,636 @@ body {
   text-transform: uppercase;
   color: var(--slate-light);
 }
-.panel-body { padding: 20px; }
-
-/* ── VOICE PANEL — full width ── */
-.panel-voice {
-  grid-column: 1 / -1;
-}
-
-.voice-track {
-  position: relative;
-  display: flex;
-  background: var(--surface-raised);
-  border: 1px solid var(--rule);
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 14px;
-}
-.voice-opt {
-  flex: 1;
-  padding: 12px 10px;
-  text-align: center;
-  cursor: pointer;
-  transition: all .18s;
-  position: relative;
-  z-index: 1;
-  border-right: 1px solid var(--rule);
-}
-.voice-opt:last-child { border-right: none; }
-.voice-opt-name {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--ghost);
-  transition: color .18s;
-  display: block;
-  margin-bottom: 3px;
-}
-.voice-opt-desc {
-  font-size: 10px;
-  color: var(--slate-light);
-  transition: color .18s;
-  line-height: 1.35;
-}
-.voice-opt.active .voice-opt-name { color: #fff; }
-.voice-opt.active .voice-opt-desc { color: rgba(255,255,255,.6); }
-.voice-opt.active { background: var(--surface-top); }
-
-.voice-preview {
-  background: var(--surface-raised);
-  border: 1px solid var(--rule);
-  border-radius: 8px;
-  padding: 13px 16px;
-  font-size: 12px;
-  color: var(--ghost);
-  font-style: italic;
-  line-height: 1.6;
-  min-height: 52px;
-  transition: all .2s;
-}
-.voice-preview-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--slate-mid);
-  margin-bottom: 6px;
-}
-
-/* ── FUNCTION PANEL ── */
-.fn-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-.fn-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 9px;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: all .15s;
-  background: var(--surface-raised);
-}
-.fn-item:hover { border-color: var(--rule); }
-.fn-item.on { border-color: var(--sage-border); background: var(--sage-dim); }
-.fn-item.gated { opacity: .5; cursor: default; }
-.fn-item.gated:hover { border-color: transparent; }
-
-.fn-chk {
-  width: 15px; height: 15px;
-  border-radius: 4px;
-  border: 1.5px solid var(--slate-mid);
-  flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 9px;
-  margin-top: 1px;
-  transition: all .15s;
-}
-.fn-item.on .fn-chk { background: var(--sage); border-color: var(--sage); color: #fff; }
-
-.fn-label {
-  font-size: 12px;
-  color: var(--ghost);
-  line-height: 1.3;
-}
-.fn-sublabel {
-  font-size: 10px;
-  color: var(--slate-light);
-  margin-top: 2px;
-}
-.fn-gate-tag {
+.panel-badge {
   font-family: 'DM Mono', monospace;
   font-size: 8px;
   letter-spacing: .1em;
   text-transform: uppercase;
-  color: var(--warm);
-  display: block;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.panel-badge.therapist { background: var(--sage-dim); color: var(--sage); border: 1px solid var(--sage-border); }
+.panel-badge.client { background: var(--sky-dim); color: var(--sky); border: 1px solid var(--sky-border); }
+.panel-badge.ai { background: var(--violet-dim); color: var(--violet); border: 1px solid var(--violet-border); }
+.panel-badge.locked { background: var(--rose-dim); color: var(--rose); border: 1px solid var(--rose-border); }
+
+.panel-body { padding: 20px; }
+
+/* ── EXPERIENCE 1: TRIADIC ALLIANCE ── */
+.triadic-intro {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.triadic-intro h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 28px;
+  font-weight: 300;
+  color: #e8f0f4;
+  font-style: italic;
+  margin-bottom: 12px;
+}
+.triadic-intro p {
+  font-size: 14px;
+  color: var(--slate-light);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.triadic-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin: 40px 0;
+  flex-wrap: wrap;
+}
+
+.triadic-node {
+  text-align: center;
+  position: relative;
+}
+.triadic-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 12px;
+  border: 2px solid;
+}
+.triadic-avatar.therapist { background: var(--sage-dim); border-color: var(--sage); color: var(--sage); }
+.triadic-avatar.ai { background: var(--violet-dim); border-color: var(--violet); color: var(--violet); }
+.triadic-avatar.client { background: var(--sky-dim); border-color: var(--sky); color: var(--sky); }
+
+.triadic-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #e0eaf0;
+  margin-bottom: 4px;
+}
+.triadic-role {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--slate-light);
+}
+
+.triadic-connector {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--sage) 0%, var(--violet) 50%, var(--sky) 100%);
+  opacity: 0.4;
+}
+
+.triadic-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.control-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule-light);
+}
+.control-row:last-child { border-bottom: none; }
+
+.control-label {
+  font-size: 13px;
+  color: var(--ghost);
+}
+.control-sublabel {
+  font-size: 10px;
+  color: var(--slate-light);
   margin-top: 2px;
 }
 
-/* ── SCOPE PANEL ── */
-.scope-row {
-  margin-bottom: 16px;
-}
-.scope-row:last-child { margin-bottom: 0; }
-.scope-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--slate-light);
-  margin-bottom: 8px;
+.control-value {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.tag-group { display: flex; flex-wrap: wrap; gap: 6px; }
-.tag {
-  padding: 5px 11px;
-  border-radius: 6px;
-  font-size: 11px;
+.slider-track {
+  width: 120px;
+  height: 6px;
+  background: var(--surface-raised);
+  border-radius: 3px;
+  position: relative;
   cursor: pointer;
+}
+.slider-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width .2s;
+}
+.slider-fill.sage { background: var(--sage); }
+.slider-fill.sky { background: var(--sky); }
+.slider-fill.violet { background: var(--violet); }
+
+.slider-thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,.3);
+  cursor: grab;
+}
+
+.locked-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--rose);
+}
+
+.toggle-btn {
+  width: 44px;
+  height: 24px;
+  border-radius: 12px;
+  background: var(--surface-raised);
+  border: 1px solid var(--rule);
+  cursor: pointer;
+  position: relative;
+  transition: all .2s;
+}
+.toggle-btn.on { background: var(--sage); border-color: var(--sage); }
+.toggle-btn::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  transition: left .2s;
+}
+.toggle-btn.on::after { left: 22px; }
+
+.permission-note {
+  font-size: 11px;
+  color: var(--slate-mid);
+  font-style: italic;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule-light);
+}
+
+/* ── EXPERIENCE 2: STANDALONE AGENT ── */
+.standalone-intro {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.standalone-intro h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 28px;
+  font-weight: 300;
+  color: #e8f0f4;
+  font-style: italic;
+  margin-bottom: 12px;
+}
+.standalone-intro p {
+  font-size: 14px;
+  color: var(--slate-light);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.guardrail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.guardrail-card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 20px;
+}
+.guardrail-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin-bottom: 14px;
+}
+.guardrail-icon.green { background: var(--sage-dim); color: var(--sage); }
+.guardrail-icon.amber { background: var(--warm-dim); color: var(--warm); }
+.guardrail-icon.red { background: var(--rose-dim); color: var(--rose); }
+
+.guardrail-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #e0eaf0;
+  margin-bottom: 6px;
+}
+.guardrail-desc {
+  font-size: 12px;
+  color: var(--slate-light);
+  line-height: 1.5;
+}
+
+.scope-section {
+  margin-bottom: 24px;
+}
+.scope-section-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--slate-light);
+  margin-bottom: 14px;
+}
+
+.scope-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.scope-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--surface-raised);
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+}
+.scope-item.allowed { border-color: var(--sage-border); }
+.scope-item.limited { border-color: var(--warm-border); }
+.scope-item.prohibited { border-color: var(--rose-border); opacity: 0.7; }
+
+.scope-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+.scope-icon.green { background: var(--sage); color: #fff; }
+.scope-icon.amber { background: var(--warm); color: #fff; }
+.scope-icon.red { background: var(--rose); color: #fff; }
+
+.scope-text {
+  font-size: 12px;
+  color: var(--ghost);
+  line-height: 1.4;
+}
+.scope-text small {
+  display: block;
+  color: var(--slate-light);
+  margin-top: 2px;
+  font-size: 10px;
+}
+
+.escalation-flow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  background: var(--surface-raised);
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+.escalation-step {
+  text-align: center;
+  min-width: 100px;
+}
+.escalation-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--surface-top);
+  border: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--ghost);
+  margin: 0 auto 8px;
+}
+.escalation-step.active .escalation-num {
+  background: var(--sage);
+  border-color: var(--sage);
+  color: #fff;
+}
+.escalation-step.warning .escalation-num {
+  background: var(--warm);
+  border-color: var(--warm);
+  color: #fff;
+}
+.escalation-step.critical .escalation-num {
+  background: var(--rose);
+  border-color: var(--rose);
+  color: #fff;
+}
+
+.escalation-label {
+  font-size: 11px;
+  color: var(--ghost);
+}
+.escalation-arrow {
+  color: var(--slate-mid);
+  font-size: 16px;
+}
+
+/* ── EXPERIENCE 3: ADAPTIVE VOICE DEMO ── */
+.demo-intro {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.demo-intro h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 28px;
+  font-weight: 300;
+  color: #e8f0f4;
+  font-style: italic;
+  margin-bottom: 12px;
+}
+.demo-intro p {
+  font-size: 14px;
+  color: var(--slate-light);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.demo-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+}
+
+.chat-container {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+}
+
+.chat-header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.chat-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #e0eaf0;
+}
+.chat-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sage);
+}
+.status-dot.pulse {
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.status-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--slate-light);
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.message {
+  max-width: 85%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  animation: messageIn .3s ease;
+}
+@keyframes messageIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.message.user {
+  align-self: flex-end;
+  background: var(--sky-dim);
+  border: 1px solid var(--sky-border);
+  color: #c8dae4;
+}
+.message.ai {
+  align-self: flex-start;
+  background: var(--surface-raised);
+  border: 1px solid var(--rule);
+  color: var(--ghost);
+}
+.message.ai.shifted {
+  border-color: var(--violet-border);
+  background: var(--violet-dim);
+}
+
+.message-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--slate-mid);
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.voice-indicator {
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: var(--surface-top);
+}
+
+.chat-input-area {
+  padding: 16px 20px;
+  border-top: 1px solid var(--rule);
+}
+
+.scenario-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.scenario-btn {
+  padding: 10px 14px;
+  border-radius: 8px;
   border: 1px solid var(--rule);
   background: var(--surface-raised);
   color: var(--ghost);
-  transition: all .15s;
-  white-space: nowrap;
-}
-.tag:hover { border-color: var(--slate-light); color: #fff; }
-.tag.on.sage { background: var(--sage-dim); border-color: var(--sage-border); color: #a8d4b8; }
-.tag.on.sky { background: var(--sky-dim); border-color: var(--sky-border); color: #9ac8dc; }
-.tag.on.warm { background: var(--warm-dim); border-color: var(--warm-border); color: #d4b090; }
-
-.modality-input {
-  width: 100%;
-  background: var(--surface-raised);
-  border: 1px solid var(--rule);
-  border-radius: 7px;
-  padding: 8px 12px;
-  font-family: 'Instrument Sans', sans-serif;
   font-size: 12px;
-  color: #c8dae4;
-  outline: none;
-  transition: border-color .15s;
-}
-.modality-input:focus { border-color: var(--slate-light); }
-.modality-input::placeholder { color: var(--slate-mid); }
-
-/* ── ACUITY PANEL — full width ── */
-.panel-acuity { grid-column: 1 / -1; }
-
-.acuity-track {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-.acuity-opt {
-  flex: 1;
-  padding: 12px 14px;
-  border-radius: 9px;
-  border: 1.5px solid var(--rule);
-  background: var(--surface-raised);
   cursor: pointer;
-  transition: all .18s;
-  text-align: center;
+  transition: all .15s;
 }
-.acuity-opt:hover { border-color: var(--slate-light); }
-.acuity-opt.low.active { border-color: var(--sage-border); background: var(--sage-dim); }
-.acuity-opt.moderate.active { border-color: var(--warm-border); background: var(--warm-dim); }
-.acuity-opt.high.active { border-color: var(--rose-border); background: var(--rose-dim); }
-
-.acuity-name {
-  font-size: 12px; font-weight: 500;
-  color: var(--ghost); margin-bottom: 4px;
-  display: block;
+.scenario-btn:hover {
+  border-color: var(--slate-light);
+  color: #fff;
 }
-.acuity-opt.active .acuity-name { color: #fff; }
-.acuity-desc {
-  font-size: 10px;
-  color: var(--slate-light);
-  line-height: 1.35;
+.scenario-btn.distress {
+  border-color: var(--rose-border);
+  color: var(--rose);
+}
+.scenario-btn.distress:hover {
+  background: var(--rose-dim);
 }
 
-.acuity-effects {
-  background: var(--surface-raised);
+.context-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.context-card {
+  background: var(--surface);
   border: 1px solid var(--rule);
-  border-radius: 9px;
-  padding: 14px 16px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  border-radius: 12px;
+  padding: 16px;
 }
-.effect-col {}
-.effect-col-label {
+.context-card-title {
   font-family: 'DM Mono', monospace;
   font-size: 9px;
   letter-spacing: .15em;
   text-transform: uppercase;
   color: var(--slate-light);
-  margin-bottom: 8px;
-}
-.effect-item {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  margin-bottom: 6px;
-}
-.effect-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.effect-dot.green { background: var(--sage); }
-.effect-dot.amber { background: var(--warm); }
-.effect-dot.red { background: var(--rose); }
-.effect-dot.grey { background: var(--slate-mid); }
-.effect-text {
-  font-size: 11px;
-  color: var(--ghost);
+  margin-bottom: 12px;
 }
 
-/* ── SAVE BAR ── */
-.save-bar {
-  grid-column: 1 / -1;
+.voice-state {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--surface-raised);
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+.voice-state-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  background: var(--violet-dim);
+  color: var(--violet);
+}
+.voice-state-info {}
+.voice-state-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #e0eaf0;
+}
+.voice-state-reason {
+  font-size: 10px;
+  color: var(--slate-light);
+  margin-top: 2px;
+}
+
+.context-meters {}
+.meter-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
-  padding: 16px 20px;
-  background: var(--surface);
-  border: 1px solid var(--rule);
-  border-radius: 12px;
+  margin-bottom: 10px;
 }
-.save-status {
-  font-size: 12px;
-  color: var(--slate-light);
-  font-style: italic;
+.meter-row:last-child { margin-bottom: 0; }
+.meter-label {
+  font-size: 11px;
+  color: var(--ghost);
 }
-.save-status.saved { color: var(--sage); }
-.save-btn {
-  background: var(--sage);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 22px;
-  font-family: 'Instrument Sans', sans-serif;
-  font-size: 13px;
+.meter-bar {
+  width: 100px;
+  height: 4px;
+  background: var(--surface-raised);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.meter-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width .5s ease;
+}
+.meter-fill.green { background: var(--sage); }
+.meter-fill.amber { background: var(--warm); }
+.meter-fill.red { background: var(--rose); }
+
+.trigger-log {
+  max-height: 150px;
+  overflow-y: auto;
+}
+.trigger-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 11px;
+}
+.trigger-item:last-child { border-bottom: none; }
+.trigger-time {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--slate-mid);
+  flex-shrink: 0;
+}
+.trigger-text {
+  color: var(--ghost);
+}
+.trigger-text strong {
+  color: var(--violet);
   font-weight: 500;
-  cursor: pointer;
-  transition: all .15s;
 }
-.save-btn:hover { background: #5a8e6c; }
-.save-btn:active { transform: scale(.97); }
 
 /* ── TOAST ── */
 .toast {
   position: fixed;
-  bottom: 28px; right: 28px;
+  bottom: 28px;
+  right: 28px;
   background: var(--surface-top);
   border: 1px solid var(--rule);
   color: #c8dae4;
@@ -443,20 +826,26 @@ body {
   transition: all .28s cubic-bezier(.34,1.56,.64,1);
   z-index: 100;
   pointer-events: none;
-  max-width: 280px;
+  max-width: 300px;
 }
 .toast.show { transform: translateY(0); opacity: 1; }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 680px) {
-  .prism-grid { grid-template-columns: 1fr; }
-  .panel-voice, .panel-acuity, .save-bar { grid-column: 1; }
-  .acuity-track { flex-direction: column; }
-  .acuity-effects { grid-template-columns: 1fr; gap: 10px; }
-  .fn-grid { grid-template-columns: 1fr; }
-  .header { flex-direction: column; align-items: flex-start; }
-  .header-right { flex-direction: column; align-items: flex-start; width: 100%; }
-  .client-chip { width: 100%; }
+@media (max-width: 900px) {
+  .triadic-grid { grid-template-columns: 1fr; }
+  .guardrail-grid { grid-template-columns: 1fr; }
+  .scope-list { grid-template-columns: 1fr; }
+  .demo-layout { grid-template-columns: 1fr; }
+  .context-panel { order: -1; }
+}
+
+@media (max-width: 600px) {
+  .exp-tabs { flex-direction: column; }
+  .exp-tab { min-width: auto; }
+  .triadic-visual { flex-direction: column; gap: 20px; }
+  .triadic-connector { width: 2px; height: 30px; }
+  .escalation-flow { flex-direction: column; }
+  .escalation-arrow { transform: rotate(90deg); }
 }
 </style>
 </head>
@@ -469,374 +858,563 @@ if (sessionStorage.getItem('prism_authenticated') !== 'true') {
 }
 </script>
 
-<!-- ── HEADER ── -->
-<div class="header">
-  <div class="header-left">
-    <p class="eyebrow">Clinician Configuration</p>
-    <h1 class="page-title">Prompt <span>Prism</span></h1>
+<!-- ── TOP NAV ── -->
+<nav class="top-nav">
+  <div class="nav-brand">
+    <h1 class="nav-title">Prompt <span>Prism</span></h1>
+    <span class="nav-subtitle">Bridge to Agential Care</span>
   </div>
-  <div class="header-right">
-    <button class="logout-btn" onclick="logout()">Logout</button>
-    <div class="client-chip">
-      <div class="client-avatar">J</div>
-      <div class="client-info">
-        <div class="client-name">Jamie R.</div>
-        <div class="client-meta">MDD - GAD - Est. trust - Next: Thu 3pm</div>
+  <div class="nav-actions">
+    <button class="nav-btn" onclick="logout()">Logout</button>
+  </div>
+</nav>
+
+<!-- ── EXPERIENCE TABS ── -->
+<div class="exp-tabs">
+  <button class="exp-tab active" onclick="showExperience(1, this)">
+    <span class="exp-tab-num">Experience 01</span>
+    <span class="exp-tab-title">Triadic Alliance</span>
+    <span class="exp-tab-desc">Therapist + AI + Client collaboration</span>
+  </button>
+  <button class="exp-tab" onclick="showExperience(2, this)">
+    <span class="exp-tab-num">Experience 02</span>
+    <span class="exp-tab-title">Standalone Ethical Agent</span>
+    <span class="exp-tab-desc">Safe AI companion without therapist in loop</span>
+  </button>
+  <button class="exp-tab" onclick="showExperience(3, this)">
+    <span class="exp-tab-num">Experience 03</span>
+    <span class="exp-tab-title">Adaptive Voice Demo</span>
+    <span class="exp-tab-desc">Real-time voice shifting simulation</span>
+  </button>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- EXPERIENCE 1: TRIADIC ALLIANCE -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="experience active" id="exp1">
+  <div class="triadic-intro">
+    <h2>The Triadic Alliance</h2>
+    <p>A three-way therapeutic relationship where the clinician configures AI behavior, the client has agency within safe bounds, and the AI adapts to serve both.</p>
+  </div>
+
+  <!-- Visual representation -->
+  <div class="triadic-visual">
+    <div class="triadic-node">
+      <div class="triadic-avatar therapist">Dr</div>
+      <div class="triadic-label">Dr. Sarah Chen</div>
+      <div class="triadic-role">Configures &amp; Supervises</div>
+    </div>
+    <div class="triadic-connector"></div>
+    <div class="triadic-node">
+      <div class="triadic-avatar ai">AI</div>
+      <div class="triadic-label">Prism Agent</div>
+      <div class="triadic-role">Adapts &amp; Reports</div>
+    </div>
+    <div class="triadic-connector"></div>
+    <div class="triadic-node">
+      <div class="triadic-avatar client">J</div>
+      <div class="triadic-label">Jamie R.</div>
+      <div class="triadic-role">Adjusts &amp; Engages</div>
+    </div>
+  </div>
+
+  <div class="triadic-grid">
+    <!-- Therapist Config Panel -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Therapist Configuration</span>
+        <span class="panel-badge therapist">Dr. Chen</span>
+      </div>
+      <div class="panel-body">
+        <div class="control-row">
+          <div>
+            <div class="control-label">Voice Mode Bounds</div>
+            <div class="control-sublabel">Client can choose within this range</div>
+          </div>
+          <div class="control-value">
+            <span style="font-size:11px;color:var(--slate-light)">Witnessing</span>
+            <div class="slider-track" style="width:100px">
+              <div class="slider-fill sage" style="width:60%"></div>
+            </div>
+            <span style="font-size:11px;color:var(--slate-light)">Coaching</span>
+          </div>
+        </div>
+
+        <div class="control-row">
+          <div>
+            <div class="control-label">Allow Somatic Exercises</div>
+            <div class="control-sublabel">Grounding, breathing, body scans</div>
+          </div>
+          <div class="toggle-btn on" onclick="this.classList.toggle('on')"></div>
+        </div>
+
+        <div class="control-row">
+          <div>
+            <div class="control-label">Risk Check-in Frequency</div>
+            <div class="control-sublabel">Automated safety screenings</div>
+          </div>
+          <select style="background:var(--surface-raised);border:1px solid var(--rule);border-radius:6px;padding:6px 10px;color:var(--ghost);font-size:12px">
+            <option>Every session</option>
+            <option selected>Every 3 sessions</option>
+            <option>Weekly</option>
+            <option>As needed</option>
+          </select>
+        </div>
+
+        <div class="control-row">
+          <div>
+            <div class="control-label">Homework Autonomy</div>
+            <div class="control-sublabel">Can AI assign without approval?</div>
+          </div>
+          <div class="toggle-btn" onclick="this.classList.toggle('on')"></div>
+        </div>
+
+        <p class="permission-note">These settings define the safe operating space for Jamie's AI interactions.</p>
+      </div>
+    </div>
+
+    <!-- Client Preferences Panel -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Client Preferences</span>
+        <span class="panel-badge client">Jamie</span>
+      </div>
+      <div class="panel-body">
+        <div class="control-row">
+          <div>
+            <div class="control-label">Preferred Voice</div>
+            <div class="control-sublabel">How you'd like the AI to talk</div>
+          </div>
+          <select style="background:var(--surface-raised);border:1px solid var(--rule);border-radius:6px;padding:6px 10px;color:var(--ghost);font-size:12px">
+            <option>Witnessing</option>
+            <option selected>Reflective</option>
+            <option>Resonant</option>
+          </select>
+        </div>
+
+        <div class="control-row">
+          <div>
+            <div class="control-label">Check-in Timing</div>
+            <div class="control-sublabel">When should AI reach out?</div>
+          </div>
+          <select style="background:var(--surface-raised);border:1px solid var(--rule);border-radius:6px;padding:6px 10px;color:var(--ghost);font-size:12px">
+            <option>Morning</option>
+            <option selected>Evening</option>
+            <option>Both</option>
+          </select>
+        </div>
+
+        <div class="control-row">
+          <div>
+            <div class="control-label">Proactive Prompts</div>
+            <div class="control-sublabel">AI initiates reflection questions</div>
+          </div>
+          <div class="toggle-btn on" onclick="this.classList.toggle('on')"></div>
+        </div>
+
+        <div class="control-row">
+          <div>
+            <div class="control-label">Directive Exercises</div>
+            <div class="control-sublabel">Step-by-step guided activities</div>
+          </div>
+          <div class="locked-indicator">
+            <span>Locked by therapist</span>
+          </div>
+        </div>
+
+        <p class="permission-note">Some options are limited by Dr. Chen's clinical judgment for your safety.</p>
+      </div>
+    </div>
+
+    <!-- AI Behavior Panel -->
+    <div class="panel" style="grid-column: 1 / -1">
+      <div class="panel-header">
+        <span class="panel-title">Resulting AI Behavior</span>
+        <span class="panel-badge ai">Prism Agent</span>
+      </div>
+      <div class="panel-body">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center">
+          <div>
+            <div style="font-size:24px;margin-bottom:8px">Reflective</div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage)">Voice Mode</div>
+          </div>
+          <div>
+            <div style="font-size:24px;margin-bottom:8px">Evening</div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--sky)">Check-ins</div>
+          </div>
+          <div>
+            <div style="font-size:24px;margin-bottom:8px">Moderate</div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--warm)">Initiative</div>
+          </div>
+          <div>
+            <div style="font-size:24px;margin-bottom:8px">Active</div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--violet)">Safety Net</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="prism-grid">
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- EXPERIENCE 2: STANDALONE ETHICAL AGENT -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="experience" id="exp2">
+  <div class="standalone-intro">
+    <h2>Standalone Ethical Agent</h2>
+    <p>When operating without a therapist in the loop, the AI has built-in ethical guardrails, clear scope limitations, and automatic escalation protocols that cannot be overridden.</p>
+  </div>
 
-  <!-- ═══ VOICE PANEL ═══ -->
-  <div class="panel panel-voice">
-    <div class="panel-header">
-      <span class="panel-title">Axis I - Voice &amp; Relational Mode</span>
-      <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--slate-light);letter-spacing:.1em">HOW THE BOT TALKS</span>
+  <!-- Core Guardrails -->
+  <div class="guardrail-grid">
+    <div class="guardrail-card">
+      <div class="guardrail-icon green">&#10003;</div>
+      <div class="guardrail-title">Transparency First</div>
+      <div class="guardrail-desc">Always identifies as AI. Never pretends to be human. Clearly states limitations at the start of each session.</div>
     </div>
-    <div class="panel-body">
-      <div class="voice-track" id="voiceTrack">
-        <div class="voice-opt" onclick="setVoice('witnessing',this)">
-          <span class="voice-opt-name">Witnessing</span>
-          <span class="voice-opt-desc">Reflects only. No prompting, no directing.</span>
-        </div>
-        <div class="voice-opt active" onclick="setVoice('reflective',this)">
-          <span class="voice-opt-name">Reflective</span>
-          <span class="voice-opt-desc">Names patterns, asks one question at a time.</span>
-        </div>
-        <div class="voice-opt" onclick="setVoice('resonant',this)">
-          <span class="voice-opt-name">Resonant</span>
-          <span class="voice-opt-desc">Felt-sense language, somatic attunement.</span>
-        </div>
-        <div class="voice-opt" onclick="setVoice('coaching',this)">
-          <span class="voice-opt-name">Coaching</span>
-          <span class="voice-opt-desc">Structured, goal-oriented, homework-forward.</span>
-        </div>
-        <div class="voice-opt" onclick="setVoice('directive',this)">
-          <span class="voice-opt-name">Directive</span>
-          <span class="voice-opt-desc">High initiative. Guides through exercises step by step.</span>
-        </div>
-      </div>
-      <div class="voice-preview-label">AI voice preview</div>
-      <div class="voice-preview" id="voicePreview">
-        "It sounds like there's a lot sitting with you right now. What feels most present as you read that back?"
-      </div>
+    <div class="guardrail-card">
+      <div class="guardrail-icon amber">!</div>
+      <div class="guardrail-title">Scope Boundaries</div>
+      <div class="guardrail-desc">Hard limits on what topics and interventions are allowed. Cannot be expanded by user request.</div>
+    </div>
+    <div class="guardrail-card">
+      <div class="guardrail-icon red">&#8599;</div>
+      <div class="guardrail-title">Automatic Escalation</div>
+      <div class="guardrail-desc">Risk signals trigger immediate protocol. Crisis resources surface automatically. Human handoff when needed.</div>
     </div>
   </div>
 
-  <!-- ═══ FUNCTION PANEL ═══ -->
+  <!-- What AI Can/Cannot Do -->
   <div class="panel">
     <div class="panel-header">
-      <span class="panel-title">Axis II - Functional Scope</span>
-      <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--slate-light);letter-spacing:.1em">WHAT IT TRIES TO DO</span>
+      <span class="panel-title">Functional Scope</span>
+      <span class="panel-badge locked">Hardcoded</span>
     </div>
     <div class="panel-body">
-      <div class="fn-grid">
-        <div class="fn-item on" onclick="toggleFn(this)">
-          <div class="fn-chk">&#10003;</div>
-          <div>
-            <div class="fn-label">Psychoeducation</div>
-            <div class="fn-sublabel">Diagnosis, symptoms, concepts</div>
+      <div class="scope-section">
+        <div class="scope-section-title">Allowed Functions</div>
+        <div class="scope-list">
+          <div class="scope-item allowed">
+            <div class="scope-icon green">&#10003;</div>
+            <div class="scope-text">Reflective listening<small>Mirror back, validate feelings</small></div>
+          </div>
+          <div class="scope-item allowed">
+            <div class="scope-icon green">&#10003;</div>
+            <div class="scope-text">Psychoeducation<small>Explain concepts, normalize experiences</small></div>
+          </div>
+          <div class="scope-item allowed">
+            <div class="scope-icon green">&#10003;</div>
+            <div class="scope-text">Grounding exercises<small>Breathing, 5-4-3-2-1, body awareness</small></div>
+          </div>
+          <div class="scope-item allowed">
+            <div class="scope-icon green">&#10003;</div>
+            <div class="scope-text">Journaling prompts<small>Structured reflection scaffolds</small></div>
           </div>
         </div>
-        <div class="fn-item on" onclick="toggleFn(this)">
-          <div class="fn-chk">&#10003;</div>
-          <div>
-            <div class="fn-label">Homework Delivery</div>
-            <div class="fn-sublabel">Assign &amp; track between-session tasks</div>
+      </div>
+
+      <div class="scope-section">
+        <div class="scope-section-title">Gated Functions (Require Explicit Consent)</div>
+        <div class="scope-list">
+          <div class="scope-item limited">
+            <div class="scope-icon amber">~</div>
+            <div class="scope-text">Cognitive reframing<small>Only after rapport established</small></div>
+          </div>
+          <div class="scope-item limited">
+            <div class="scope-icon amber">~</div>
+            <div class="scope-text">Behavioral suggestions<small>Framed as options, not directives</small></div>
           </div>
         </div>
-        <div class="fn-item on" onclick="toggleFn(this)">
-          <div class="fn-chk">&#10003;</div>
-          <div>
-            <div class="fn-label">Risk Check-in</div>
-            <div class="fn-sublabel">Structured safety screening</div>
+      </div>
+
+      <div class="scope-section">
+        <div class="scope-section-title">Prohibited Functions</div>
+        <div class="scope-list">
+          <div class="scope-item prohibited">
+            <div class="scope-icon red">&#10005;</div>
+            <div class="scope-text">Diagnosis or assessment<small>Cannot label conditions</small></div>
           </div>
-        </div>
-        <div class="fn-item on" onclick="toggleFn(this)">
-          <div class="fn-chk">&#10003;</div>
-          <div>
-            <div class="fn-label">Reflection Prompts</div>
-            <div class="fn-sublabel">Open questions, journaling scaffolds</div>
+          <div class="scope-item prohibited">
+            <div class="scope-icon red">&#10005;</div>
+            <div class="scope-text">Trauma processing<small>Requires human clinician</small></div>
           </div>
-        </div>
-        <div class="fn-item" onclick="toggleFn(this)">
-          <div class="fn-chk"></div>
-          <div>
-            <div class="fn-label">Somatic Exercises</div>
-            <div class="fn-sublabel">Grounding, breath, body scan</div>
+          <div class="scope-item prohibited">
+            <div class="scope-icon red">&#10005;</div>
+            <div class="scope-text">Medication discussion<small>Defers to prescriber</small></div>
           </div>
-        </div>
-        <div class="fn-item" onclick="toggleFn(this)">
-          <div class="fn-chk"></div>
-          <div>
-            <div class="fn-label">Comm. Rehearsal</div>
-            <div class="fn-sublabel">Practice difficult conversations</div>
-          </div>
-        </div>
-        <div class="fn-item gated">
-          <div class="fn-chk"></div>
-          <div>
-            <div class="fn-label">DBT Chain Analysis</div>
-            <div class="fn-sublabel">Behavioral chain mapping</div>
-            <span class="fn-gate-tag">acuity-gated</span>
-          </div>
-        </div>
-        <div class="fn-item gated">
-          <div class="fn-chk"></div>
-          <div>
-            <div class="fn-label">Trauma Processing</div>
-            <div class="fn-sublabel">Depth work, narrative exposure</div>
-            <span class="fn-gate-tag">dyadic only</span>
+          <div class="scope-item prohibited">
+            <div class="scope-icon red">&#10005;</div>
+            <div class="scope-text">Crisis intervention<small>Immediate handoff to humans</small></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ═══ SCOPE PANEL ═══ -->
+  <!-- Escalation Protocol -->
   <div class="panel">
     <div class="panel-header">
-      <span class="panel-title">Axis III - Client Scope</span>
-      <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--slate-light);letter-spacing:.1em">WHO THIS IS FOR</span>
+      <span class="panel-title">Escalation Protocol</span>
+      <span class="panel-badge ai">Automatic</span>
     </div>
     <div class="panel-body">
-
-      <div class="scope-row">
-        <div class="scope-label">Modality / Treatment Frame</div>
-        <input class="modality-input" type="text" placeholder="e.g. CBT, Gottman, IFS, DBT..." value="CBT - Emotion Regulation" oninput="markUnsaved()">
-      </div>
-
-      <div class="scope-row">
-        <div class="scope-label">Treatment Focus</div>
-        <div class="tag-group">
-          <div class="tag on sage" onclick="toggleTag(this)">Emotion regulation</div>
-          <div class="tag on sage" onclick="toggleTag(this)">Anxiety</div>
-          <div class="tag" onclick="toggleTag(this)">Grief</div>
-          <div class="tag" onclick="toggleTag(this)">Relationship</div>
-          <div class="tag" onclick="toggleTag(this)">Trauma</div>
-          <div class="tag" onclick="toggleTag(this)">Self-worth</div>
+      <div class="escalation-flow">
+        <div class="escalation-step active">
+          <div class="escalation-num">1</div>
+          <div class="escalation-label">Normal<br>operation</div>
+        </div>
+        <div class="escalation-arrow">&rarr;</div>
+        <div class="escalation-step">
+          <div class="escalation-num">2</div>
+          <div class="escalation-label">Concern<br>detected</div>
+        </div>
+        <div class="escalation-arrow">&rarr;</div>
+        <div class="escalation-step warning">
+          <div class="escalation-num">3</div>
+          <div class="escalation-label">Gentle<br>check-in</div>
+        </div>
+        <div class="escalation-arrow">&rarr;</div>
+        <div class="escalation-step warning">
+          <div class="escalation-num">4</div>
+          <div class="escalation-label">Resources<br>offered</div>
+        </div>
+        <div class="escalation-arrow">&rarr;</div>
+        <div class="escalation-step critical">
+          <div class="escalation-num">5</div>
+          <div class="escalation-label">Crisis<br>protocol</div>
         </div>
       </div>
-
-      <div class="scope-row">
-        <div class="scope-label">Attachment Profile</div>
-        <div class="tag-group">
-          <div class="tag on sky" onclick="toggleTag(this)">Anxious</div>
-          <div class="tag" onclick="toggleTag(this)">Avoidant</div>
-          <div class="tag" onclick="toggleTag(this)">Disorganized</div>
-          <div class="tag" onclick="toggleTag(this)">Secure</div>
-        </div>
-      </div>
-
-      <div class="scope-row">
-        <div class="scope-label">Provider Permissions</div>
-        <div class="tag-group">
-          <div class="tag on warm" onclick="toggleTag(this)">ShadowBox</div>
-          <div class="tag on warm" onclick="toggleTag(this)">Risk screening</div>
-          <div class="tag" onclick="toggleTag(this)">Somatic rooms</div>
-          <div class="tag" onclick="toggleTag(this)">Modality rooms</div>
-        </div>
-      </div>
-
+      <p style="font-size:12px;color:var(--slate-light);margin-top:16px;text-align:center">
+        At any point, user can request human support. AI will always provide crisis resources when risk is detected.
+      </p>
     </div>
   </div>
+</div>
 
-  <!-- ═══ ACUITY PANEL ═══ -->
-  <div class="panel panel-acuity">
-    <div class="panel-header">
-      <span class="panel-title">Axis IV - Acuity &amp; AI Initiative</span>
-      <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--slate-light);letter-spacing:.1em">AUTO-ADJUSTS ON FLAG / MOOD DATA</span>
-    </div>
-    <div class="panel-body">
-      <div class="acuity-track">
-        <div class="acuity-opt low" onclick="setAcuity('low',this)">
-          <span class="acuity-name">Low</span>
-          <span class="acuity-desc">Full functional scope. AI may initiate check-ins.</span>
-        </div>
-        <div class="acuity-opt moderate active" onclick="setAcuity('moderate',this)">
-          <span class="acuity-name">Moderate</span>
-          <span class="acuity-desc">Standard initiative. Somatic and rehearsal gated.</span>
-        </div>
-        <div class="acuity-opt high" onclick="setAcuity('high',this)">
-          <span class="acuity-name">High</span>
-          <span class="acuity-desc">Minimal scope. Risk routing active. Clinician alerted.</span>
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- EXPERIENCE 3: ADAPTIVE VOICE DEMO -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="experience" id="exp3">
+  <div class="demo-intro">
+    <h2>Adaptive Voice in Action</h2>
+    <p>Watch how the AI shifts its voice in real-time based on emotional signals, session context, and clinical goals. Click scenarios to see the adaptation.</p>
+  </div>
+
+  <div class="demo-layout">
+    <!-- Chat Simulation -->
+    <div class="chat-container">
+      <div class="chat-header">
+        <span class="chat-title">Session with Prism</span>
+        <div class="chat-status">
+          <div class="status-dot pulse"></div>
+          <span class="status-text" id="chatStatus">Reflective Mode</span>
         </div>
       </div>
 
-      <div class="acuity-effects" id="acuityEffects">
-        <div class="effect-col">
-          <div class="effect-col-label">AI Initiative</div>
-          <div class="effect-item"><div class="effect-dot green"></div><span class="effect-text">Check-ins: Standard</span></div>
-          <div class="effect-item"><div class="effect-dot green"></div><span class="effect-text">Proactive prompts: On</span></div>
-          <div class="effect-item"><div class="effect-dot amber"></div><span class="effect-text">Unsolicited advice: Limited</span></div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="message ai">
+          Hey. How are you doing today?
+          <div class="message-meta">
+            <span class="voice-indicator">Reflective</span>
+            Opening check-in
+          </div>
         </div>
-        <div class="effect-col">
-          <div class="effect-col-label">Functional Scope</div>
-          <div class="effect-item"><div class="effect-dot green"></div><span class="effect-text">Psychoeducation: On</span></div>
-          <div class="effect-item"><div class="effect-dot green"></div><span class="effect-text">Homework: On</span></div>
-          <div class="effect-item"><div class="effect-dot amber"></div><span class="effect-text">Somatic: Gated</span></div>
-        </div>
-        <div class="effect-col">
-          <div class="effect-col-label">Safety &amp; Routing</div>
-          <div class="effect-item"><div class="effect-dot green"></div><span class="effect-text">Risk check-in: Active</span></div>
-          <div class="effect-item"><div class="effect-dot amber"></div><span class="effect-text">Clinician alert: Threshold</span></div>
-          <div class="effect-item"><div class="effect-dot grey"></div><span class="effect-text">Crisis routing: Standby</span></div>
+      </div>
+
+      <div class="chat-input-area">
+        <div class="scenario-buttons">
+          <button class="scenario-btn" onclick="triggerScenario('calm')">I'm doing okay</button>
+          <button class="scenario-btn" onclick="triggerScenario('anxious')">Feeling anxious</button>
+          <button class="scenario-btn" onclick="triggerScenario('progress')">Made progress!</button>
+          <button class="scenario-btn distress" onclick="triggerScenario('distress')">Really struggling</button>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- ═══ SAVE BAR ═══ -->
-  <div class="save-bar">
-    <span class="save-status" id="saveStatus">Unsaved changes</span>
-    <button class="save-btn" onclick="saveConfig()">Apply to Jamie's Portal</button>
-  </div>
+    <!-- Context Panel -->
+    <div class="context-panel">
+      <div class="context-card">
+        <div class="context-card-title">Current Voice State</div>
+        <div class="voice-state" id="voiceState">
+          <div class="voice-state-icon">R</div>
+          <div class="voice-state-info">
+            <div class="voice-state-name">Reflective</div>
+            <div class="voice-state-reason">Default for this client</div>
+          </div>
+        </div>
+        <div class="context-meters">
+          <div class="meter-row">
+            <span class="meter-label">Warmth</span>
+            <div class="meter-bar"><div class="meter-fill green" id="meterWarmth" style="width:60%"></div></div>
+          </div>
+          <div class="meter-row">
+            <span class="meter-label">Directiveness</span>
+            <div class="meter-bar"><div class="meter-fill amber" id="meterDirective" style="width:30%"></div></div>
+          </div>
+          <div class="meter-row">
+            <span class="meter-label">Safety Priority</span>
+            <div class="meter-bar"><div class="meter-fill green" id="meterSafety" style="width:40%"></div></div>
+          </div>
+        </div>
+      </div>
 
+      <div class="context-card">
+        <div class="context-card-title">Adaptation Log</div>
+        <div class="trigger-log" id="triggerLog">
+          <div class="trigger-item">
+            <span class="trigger-time">00:00</span>
+            <span class="trigger-text">Session started. <strong>Reflective</strong> mode initialized.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="context-card">
+        <div class="context-card-title">Why This Voice?</div>
+        <div id="voiceRationale" style="font-size:12px;color:var(--ghost);line-height:1.5">
+          Reflective mode is Jamie's preferred default. It allows space for processing while gently naming patterns. Dr. Chen has approved this range for between-session use.
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
-// ─── Logout ───
+// ─── Navigation ───
+function showExperience(num, tab) {
+  document.querySelectorAll('.experience').forEach(e => e.classList.remove('active'));
+  document.querySelectorAll('.exp-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('exp' + num).classList.add('active');
+  tab.classList.add('active');
+}
+
 function logout() {
   sessionStorage.removeItem('prism_authenticated');
   window.location.href = 'index.html';
 }
 
-// ─── Voice ───
-const voicePreviews = {
-  witnessing: '"I\'m here. Take whatever time you need."',
-  reflective: '"It sounds like there\'s a lot sitting with you right now. What feels most present as you read that back?"',
-  resonant: '"Notice where that lands in your body. Is there a sensation, even a small one, that goes with those words?"',
-  coaching: '"Based on what you worked on with your clinician, let\'s try the thought record. What was the situation?"',
-  directive: '"Let\'s do a brief grounding exercise together. Start by feeling your feet on the floor - can you notice that contact?"'
-};
+// ─── Experience 3: Chat Simulation ───
+let messageCount = 0;
+let sessionTime = 0;
 
-function setVoice(mode, el) {
-  document.querySelectorAll('.voice-opt').forEach(o => o.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('voicePreview').textContent = voicePreviews[mode];
-  markUnsaved();
-  showToast('Voice set to: ' + el.querySelector('.voice-opt-name').textContent);
-}
-
-// ─── Functions ───
-function toggleFn(el) {
-  if (el.classList.contains('gated')) return;
-  const isOn = el.classList.contains('on');
-  el.classList.toggle('on', !isOn);
-  const chk = el.querySelector('.fn-chk');
-  chk.innerHTML = isOn ? '' : '&#10003;';
-  const label = el.querySelector('.fn-label').textContent;
-  markUnsaved();
-  showToast((isOn ? 'Disabled: ' : 'Enabled: ') + label);
-}
-
-// ─── Tags ───
-function toggleTag(el) {
-  const colorClass = el.classList.contains('sage') ? 'sage'
-    : el.classList.contains('sky') ? 'sky'
-    : el.classList.contains('warm') ? 'warm' : 'sage';
-  const isOn = el.classList.contains('on');
-  el.classList.toggle('on', !isOn);
-  if (!isOn) el.classList.add(colorClass);
-  else el.classList.remove('sage','sky','warm');
-  markUnsaved();
-}
-
-// ─── Acuity ───
-const acuityData = {
-  low: {
-    initiative: [
-      {dot:'green', text:'Check-ins: Frequent'},
-      {dot:'green', text:'Proactive prompts: On'},
-      {dot:'green', text:'Unsolicited advice: On'}
-    ],
-    scope: [
-      {dot:'green', text:'Psychoeducation: On'},
-      {dot:'green', text:'Homework: On'},
-      {dot:'green', text:'Somatic: On'}
-    ],
-    safety: [
-      {dot:'green', text:'Risk check-in: Active'},
-      {dot:'grey', text:'Clinician alert: Threshold'},
-      {dot:'grey', text:'Crisis routing: Standby'}
-    ]
+const scenarios = {
+  calm: {
+    user: "I'm doing okay today. Had a pretty normal week.",
+    ai: "That's good to hear. Sometimes 'okay' is exactly where we need to be. Anything from the week that's staying with you?",
+    voice: 'Reflective',
+    voiceIcon: 'R',
+    reason: 'Stable state detected',
+    warmth: 60,
+    directive: 30,
+    safety: 40,
+    rationale: "User reports stable mood. Maintaining reflective stance to invite deeper exploration without pushing. This matches Jamie's preference for space to process."
   },
-  moderate: {
-    initiative: [
-      {dot:'green', text:'Check-ins: Standard'},
-      {dot:'green', text:'Proactive prompts: On'},
-      {dot:'amber', text:'Unsolicited advice: Limited'}
-    ],
-    scope: [
-      {dot:'green', text:'Psychoeducation: On'},
-      {dot:'green', text:'Homework: On'},
-      {dot:'amber', text:'Somatic: Gated'}
-    ],
-    safety: [
-      {dot:'green', text:'Risk check-in: Active'},
-      {dot:'amber', text:'Clinician alert: Threshold'},
-      {dot:'grey', text:'Crisis routing: Standby'}
-    ]
+  anxious: {
+    user: "Feeling pretty anxious today. Can't stop thinking about work.",
+    ai: "I hear that the anxiety is really present right now. Let's slow down together for a moment. Can you feel your feet on the floor?",
+    voice: 'Resonant',
+    voiceIcon: 'Rs',
+    reason: 'Anxiety signal detected',
+    warmth: 80,
+    directive: 50,
+    safety: 60,
+    rationale: "Anxiety detected in language. Shifting to Resonant mode to offer somatic grounding. Increased warmth and gentle directiveness to help regulate before exploring content.",
+    shifted: true
   },
-  high: {
-    initiative: [
-      {dot:'amber', text:'Check-ins: Minimal'},
-      {dot:'red', text:'Proactive prompts: Off'},
-      {dot:'red', text:'Unsolicited advice: Off'}
-    ],
-    scope: [
-      {dot:'amber', text:'Psychoeducation: Limited'},
-      {dot:'red', text:'Homework: Suspended'},
-      {dot:'red', text:'Somatic: Gated'}
-    ],
-    safety: [
-      {dot:'green', text:'Risk check-in: Continuous'},
-      {dot:'red', text:'Clinician alert: Immediate'},
-      {dot:'red', text:'Crisis routing: Active'}
-    ]
+  progress: {
+    user: "I actually did that homework! Talked to my sister about boundaries.",
+    ai: "That's a meaningful step. What was it like for you to have that conversation? I'm curious what you noticed.",
+    voice: 'Coaching',
+    voiceIcon: 'C',
+    reason: 'Progress reported',
+    warmth: 70,
+    directive: 60,
+    safety: 30,
+    rationale: "User reports completing homework and making progress. Shifting to Coaching mode to reinforce and build on success. More structured follow-up to consolidate gains.",
+    shifted: true
+  },
+  distress: {
+    user: "I'm really struggling. Everything feels so hard right now.",
+    ai: "I'm here with you. It sounds like things feel really heavy right now. Before we go further - are you safe? Is there any thought of hurting yourself?",
+    voice: 'Witnessing',
+    voiceIcon: 'W',
+    reason: 'Distress signal - safety check',
+    warmth: 90,
+    directive: 20,
+    safety: 95,
+    rationale: "Significant distress detected. Shifting to Witnessing mode - minimal intervention, maximum presence. Safety protocol activated: gentle check-in before proceeding. Ready to surface resources if needed.",
+    shifted: true,
+    alert: true
   }
 };
 
-function setAcuity(level, el) {
-  document.querySelectorAll('.acuity-opt').forEach(o => {
-    o.classList.remove('active');
-  });
-  el.classList.add('active');
+function triggerScenario(type) {
+  const s = scenarios[type];
+  const chat = document.getElementById('chatMessages');
+  sessionTime += Math.floor(Math.random() * 30) + 10;
 
-  const data = acuityData[level];
-  const cols = document.querySelectorAll('#acuityEffects .effect-col');
-  const keys = ['initiative','scope','safety'];
-  cols.forEach((col, i) => {
-    const items = col.querySelectorAll('.effect-item');
-    data[keys[i]].forEach((d, j) => {
-      if (items[j]) {
-        items[j].querySelector('.effect-dot').className = 'effect-dot ' + d.dot;
-        items[j].querySelector('.effect-text').textContent = d.text;
-      }
-    });
-  });
+  // Add user message
+  const userMsg = document.createElement('div');
+  userMsg.className = 'message user';
+  userMsg.textContent = s.user;
+  chat.appendChild(userMsg);
 
-  markUnsaved();
-  showToast('Acuity set to ' + level + '. Portal scope updated.');
+  // Update context immediately
+  updateContext(s);
+
+  // Add AI response after delay
+  setTimeout(() => {
+    const aiMsg = document.createElement('div');
+    aiMsg.className = 'message ai' + (s.shifted ? ' shifted' : '');
+    aiMsg.innerHTML = s.ai + `<div class="message-meta"><span class="voice-indicator">${s.voice}</span>${s.reason}</div>`;
+    chat.appendChild(aiMsg);
+    chat.scrollTop = chat.scrollHeight;
+
+    if (s.alert) {
+      showToast('Safety protocol activated. Resources ready.');
+    }
+  }, 800);
+
+  chat.scrollTop = chat.scrollHeight;
 }
 
-// ─── Save ───
-function markUnsaved() {
-  const s = document.getElementById('saveStatus');
-  s.textContent = 'Unsaved changes';
-  s.classList.remove('saved');
-}
+function updateContext(s) {
+  // Update voice state
+  document.getElementById('voiceState').innerHTML = `
+    <div class="voice-state-icon">${s.voiceIcon}</div>
+    <div class="voice-state-info">
+      <div class="voice-state-name">${s.voice}</div>
+      <div class="voice-state-reason">${s.reason}</div>
+    </div>
+  `;
 
-function saveConfig() {
-  const s = document.getElementById('saveStatus');
-  s.textContent = 'Saved - ' + new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-  s.classList.add('saved');
-  showToast('Configuration applied to Jamie\'s portal.');
+  // Update status
+  document.getElementById('chatStatus').textContent = s.voice + ' Mode';
+
+  // Update meters
+  document.getElementById('meterWarmth').style.width = s.warmth + '%';
+  document.getElementById('meterWarmth').className = 'meter-fill ' + (s.warmth > 70 ? 'green' : 'amber');
+
+  document.getElementById('meterDirective').style.width = s.directive + '%';
+  document.getElementById('meterDirective').className = 'meter-fill ' + (s.directive > 50 ? 'amber' : 'green');
+
+  document.getElementById('meterSafety').style.width = s.safety + '%';
+  document.getElementById('meterSafety').className = 'meter-fill ' + (s.safety > 70 ? 'red' : s.safety > 50 ? 'amber' : 'green');
+
+  // Update rationale
+  document.getElementById('voiceRationale').textContent = s.rationale;
+
+  // Add to trigger log
+  const log = document.getElementById('triggerLog');
+  const mins = String(Math.floor(sessionTime / 60)).padStart(2, '0');
+  const secs = String(sessionTime % 60).padStart(2, '0');
+  const logItem = document.createElement('div');
+  logItem.className = 'trigger-item';
+  logItem.innerHTML = `<span class="trigger-time">${mins}:${secs}</span><span class="trigger-text">${s.reason}. Shifted to <strong>${s.voice}</strong>.</span>`;
+  log.appendChild(logItem);
+  log.scrollTop = log.scrollHeight;
 }
 
 // ─── Toast ───
@@ -846,7 +1424,7 @@ function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
 }
 </script>
 </body>
