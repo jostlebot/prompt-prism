@@ -809,6 +809,198 @@ body {
   font-weight: 500;
 }
 
+/* ── EXPERIENCE 3: RELATIONAL ATTUNEMENT ── */
+.attachment-profile {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.attachment-profile-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.attachment-profile-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.attachment-style-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .08em;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+.attachment-style-badge.anxious {
+  background: var(--warm-dim);
+  color: var(--warm);
+  border: 1px solid var(--warm-border);
+}
+.attachment-style-badge.avoidant {
+  background: var(--sky-dim);
+  color: var(--sky);
+  border: 1px solid var(--sky-border);
+}
+.attachment-style-badge.secure {
+  background: var(--sage-dim);
+  color: var(--sage);
+  border: 1px solid var(--sage-border);
+}
+
+.attachment-profile-body {
+  padding: 20px;
+}
+.attachment-needs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.need-item {
+  padding: 14px;
+  background: var(--surface-raised);
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+}
+.need-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--slate-light);
+  margin-bottom: 6px;
+}
+.need-value {
+  font-size: 13px;
+  color: var(--ghost);
+  line-height: 1.4;
+}
+
+.scenario-btn.anxious-btn {
+  border-color: var(--warm-border);
+  color: var(--warm);
+}
+.scenario-btn.anxious-btn:hover {
+  background: var(--warm-dim);
+}
+.scenario-btn.stretch-btn {
+  border-color: var(--violet-border);
+  color: var(--violet);
+}
+.scenario-btn.stretch-btn:hover {
+  background: var(--violet-dim);
+}
+.scenario-btn.secure-btn {
+  border-color: var(--sage-border);
+  color: var(--sage);
+}
+.scenario-btn.secure-btn:hover {
+  background: var(--sage-dim);
+}
+
+.relational-state {
+  padding: 14px;
+  background: var(--surface-raised);
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+}
+.relational-badge {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+.relational-badge.meeting {
+  background: var(--sage-dim);
+  color: var(--sage);
+}
+.relational-badge.stretching {
+  background: var(--violet-dim);
+  color: var(--violet);
+}
+.relational-badge.holding {
+  background: var(--warm-dim);
+  color: var(--warm);
+}
+.relational-badge.modeling {
+  background: var(--sky-dim);
+  color: var(--sky);
+}
+.relational-desc {
+  font-size: 12px;
+  color: var(--ghost);
+  line-height: 1.5;
+}
+
+.strategy-display {
+  background: var(--surface-raised);
+  border-radius: 8px;
+  padding: 14px;
+  border: 1px solid var(--rule);
+}
+.strategy-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule-light);
+}
+.strategy-row:last-child {
+  border-bottom: none;
+}
+.strategy-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--slate-light);
+  width: 70px;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+.strategy-value {
+  font-size: 12px;
+  color: var(--ghost);
+  line-height: 1.4;
+}
+
+.meter-fill.sky {
+  background: var(--sky);
+}
+
+.learning-moment {
+  font-size: 12px;
+  color: var(--ghost);
+  line-height: 1.6;
+  padding: 14px;
+  background: var(--surface-raised);
+  border-radius: 8px;
+  border-left: 3px solid var(--violet);
+}
+.learning-moment strong {
+  color: var(--violet);
+  font-weight: 500;
+}
+.learning-moment p {
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .attachment-needs {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ── TOAST ── */
 .toast {
   position: fixed;
@@ -883,8 +1075,8 @@ if (sessionStorage.getItem('prism_authenticated') !== 'true') {
   </button>
   <button class="exp-tab" onclick="showExperience(3, this)">
     <span class="exp-tab-num">Experience 03</span>
-    <span class="exp-tab-title">Adaptive Voice Demo</span>
-    <span class="exp-tab-desc">Real-time voice shifting simulation</span>
+    <span class="exp-tab-title">Relational Attunement Lab</span>
+    <span class="exp-tab-desc">Learn attachment patterns through AI interaction</span>
   </button>
 </div>
 
@@ -1192,86 +1384,123 @@ if (sessionStorage.getItem('prism_authenticated') !== 'true') {
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════ -->
-<!-- EXPERIENCE 3: ADAPTIVE VOICE DEMO -->
+<!-- EXPERIENCE 3: RELATIONAL ATTUNEMENT DEMO -->
 <!-- ══════════════════════════════════════════════════════════════════ -->
 <div class="experience" id="exp3">
   <div class="demo-intro">
-    <h2>Adaptive Voice in Action</h2>
-    <p>Watch how the AI shifts its voice in real-time based on emotional signals, session context, and clinical goals. Click scenarios to see the adaptation.</p>
+    <h2>Relational Attunement Lab</h2>
+    <p>Learn how attachment patterns show up in conversation. The AI recognizes relational bids, meets you where you are, and gently stretches toward secure relating - while teaching you what's happening.</p>
+  </div>
+
+  <!-- Attachment Profile Card -->
+  <div class="attachment-profile">
+    <div class="attachment-profile-header">
+      <div class="attachment-profile-title">
+        <span class="panel-title">Jamie's Attachment Profile</span>
+        <span class="panel-badge client">Learning Mode</span>
+      </div>
+      <div class="attachment-style-badge anxious">Primary: Anxious-Preoccupied</div>
+    </div>
+    <div class="attachment-profile-body">
+      <div class="attachment-needs">
+        <div class="need-item">
+          <div class="need-label">Core Need</div>
+          <div class="need-value">Reassurance of presence &amp; consistency</div>
+        </div>
+        <div class="need-item">
+          <div class="need-label">Early Pattern</div>
+          <div class="need-value">Inconsistent caregiver responsiveness</div>
+        </div>
+        <div class="need-item">
+          <div class="need-label">Growth Edge</div>
+          <div class="need-value">Tolerating space without abandonment fear</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="demo-layout">
     <!-- Chat Simulation -->
     <div class="chat-container">
       <div class="chat-header">
-        <span class="chat-title">Session with Prism</span>
+        <span class="chat-title">Relational Practice Session</span>
         <div class="chat-status">
           <div class="status-dot pulse"></div>
-          <span class="status-text" id="chatStatus">Reflective Mode</span>
+          <span class="status-text" id="chatStatus">Attuning</span>
         </div>
       </div>
 
       <div class="chat-messages" id="chatMessages">
         <div class="message ai">
-          Hey. How are you doing today?
+          I'm here. Before we begin, I want you to know: I'll be consistent in showing up for these conversations. You can test that. How are you arriving today?
           <div class="message-meta">
-            <span class="voice-indicator">Reflective</span>
-            Opening check-in
+            <span class="voice-indicator">Meeting</span>
+            Establishing secure base
           </div>
         </div>
       </div>
 
       <div class="chat-input-area">
+        <p style="font-size:10px;color:var(--slate-mid);margin-bottom:10px;font-family:'DM Mono',monospace;letter-spacing:.05em">EXPLORE RELATIONAL PATTERNS</p>
         <div class="scenario-buttons">
-          <button class="scenario-btn" onclick="triggerScenario('calm')">I'm doing okay</button>
-          <button class="scenario-btn" onclick="triggerScenario('anxious')">Feeling anxious</button>
-          <button class="scenario-btn" onclick="triggerScenario('progress')">Made progress!</button>
-          <button class="scenario-btn distress" onclick="triggerScenario('distress')">Really struggling</button>
+          <button class="scenario-btn anxious-btn" onclick="triggerScenario('seekReassurance')">Are you still there?</button>
+          <button class="scenario-btn anxious-btn" onclick="triggerScenario('testConnection')">You probably don't care...</button>
+          <button class="scenario-btn stretch-btn" onclick="triggerScenario('trySpace')">I need some space</button>
+          <button class="scenario-btn secure-btn" onclick="triggerScenario('secureBid')">I noticed something</button>
         </div>
       </div>
     </div>
 
-    <!-- Context Panel -->
+    <!-- Relational Context Panel -->
     <div class="context-panel">
       <div class="context-card">
-        <div class="context-card-title">Current Voice State</div>
-        <div class="voice-state" id="voiceState">
-          <div class="voice-state-icon">R</div>
-          <div class="voice-state-info">
-            <div class="voice-state-name">Reflective</div>
-            <div class="voice-state-reason">Default for this client</div>
+        <div class="context-card-title">What's Happening Relationally</div>
+        <div class="relational-state" id="relationalState">
+          <div class="relational-badge meeting">Meeting</div>
+          <div class="relational-desc">AI is establishing presence and predictability - core needs for anxious attachment.</div>
+        </div>
+      </div>
+
+      <div class="context-card">
+        <div class="context-card-title">AI Response Strategy</div>
+        <div class="strategy-display" id="strategyDisplay">
+          <div class="strategy-row">
+            <span class="strategy-label">Recognize</span>
+            <span class="strategy-value" id="stratRecognize">Opening bid for connection</span>
+          </div>
+          <div class="strategy-row">
+            <span class="strategy-label">Meet</span>
+            <span class="strategy-value" id="stratMeet">Offer clear, consistent presence</span>
+          </div>
+          <div class="strategy-row">
+            <span class="strategy-label">Stretch</span>
+            <span class="strategy-value" id="stratStretch">Invite trust in stability</span>
           </div>
         </div>
+      </div>
+
+      <div class="context-card">
+        <div class="context-card-title">Relational Meters</div>
         <div class="context-meters">
           <div class="meter-row">
-            <span class="meter-label">Warmth</span>
-            <div class="meter-bar"><div class="meter-fill green" id="meterWarmth" style="width:60%"></div></div>
+            <span class="meter-label">Reassurance</span>
+            <div class="meter-bar"><div class="meter-fill green" id="meterReassure" style="width:70%"></div></div>
           </div>
           <div class="meter-row">
-            <span class="meter-label">Directiveness</span>
-            <div class="meter-bar"><div class="meter-fill amber" id="meterDirective" style="width:30%"></div></div>
+            <span class="meter-label">Space-Holding</span>
+            <div class="meter-bar"><div class="meter-fill amber" id="meterSpace" style="width:30%"></div></div>
           </div>
           <div class="meter-row">
-            <span class="meter-label">Safety Priority</span>
-            <div class="meter-bar"><div class="meter-fill green" id="meterSafety" style="width:40%"></div></div>
+            <span class="meter-label">Growth Stretch</span>
+            <div class="meter-bar"><div class="meter-fill sky" id="meterStretch" style="width:20%"></div></div>
           </div>
         </div>
       </div>
 
       <div class="context-card">
-        <div class="context-card-title">Adaptation Log</div>
-        <div class="trigger-log" id="triggerLog">
-          <div class="trigger-item">
-            <span class="trigger-time">00:00</span>
-            <span class="trigger-text">Session started. <strong>Reflective</strong> mode initialized.</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="context-card">
-        <div class="context-card-title">Why This Voice?</div>
-        <div id="voiceRationale" style="font-size:12px;color:var(--ghost);line-height:1.5">
-          Reflective mode is Jamie's preferred default. It allows space for processing while gently naming patterns. Dr. Chen has approved this range for between-session use.
+        <div class="context-card-title">Learning Moment</div>
+        <div id="learningMoment" class="learning-moment">
+          <p><strong>For anxious attachment:</strong> The fear is that others will leave or become unavailable. The AI provides a "secure base" by being predictable and explicitly naming its consistency - something that may have been missing early on.</p>
         </div>
       </div>
     </div>
@@ -1295,58 +1524,70 @@ function logout() {
   window.location.href = 'index.html';
 }
 
-// ─── Experience 3: Chat Simulation ───
+// ─── Experience 3: Relational Attunement Simulation ───
 let messageCount = 0;
 let sessionTime = 0;
 
 const scenarios = {
-  calm: {
-    user: "I'm doing okay today. Had a pretty normal week.",
-    ai: "That's good to hear. Sometimes 'okay' is exactly where we need to be. Anything from the week that's staying with you?",
-    voice: 'Reflective',
-    voiceIcon: 'R',
-    reason: 'Stable state detected',
-    warmth: 60,
-    directive: 30,
-    safety: 40,
-    rationale: "User reports stable mood. Maintaining reflective stance to invite deeper exploration without pushing. This matches Jamie's preference for space to process."
-  },
-  anxious: {
-    user: "Feeling pretty anxious today. Can't stop thinking about work.",
-    ai: "I hear that the anxiety is really present right now. Let's slow down together for a moment. Can you feel your feet on the floor?",
-    voice: 'Resonant',
-    voiceIcon: 'Rs',
-    reason: 'Anxiety signal detected',
-    warmth: 80,
-    directive: 50,
-    safety: 60,
-    rationale: "Anxiety detected in language. Shifting to Resonant mode to offer somatic grounding. Increased warmth and gentle directiveness to help regulate before exploring content.",
+  seekReassurance: {
+    user: "Are you still there? I feel like I'm talking into a void...",
+    ai: "I'm here. I'm not going anywhere. That feeling of uncertainty - of wondering if someone is really present - makes sense given what you've shared about your history. I want you to know: when we're in session, I'm fully here. What's bringing up that worry right now?",
+    relationalMode: 'Meeting',
+    badgeClass: 'meeting',
+    reason: 'Reassurance bid recognized',
+    recognize: "Attachment bid: seeking confirmation of presence (anxious pattern)",
+    meet: "Direct, clear reassurance without minimizing the need",
+    stretch: "Naming the pattern gently; inviting curiosity about the trigger",
+    reassure: 90,
+    space: 20,
+    growth: 30,
+    learning: "<strong>Recognizing the bid:</strong> \"Are you still there?\" is a classic anxious attachment bid - checking if the other is present and available. Early experiences of inconsistent responsiveness can make this checking feel necessary. The AI meets this need directly (\"I'm here, I'm not going anywhere\") while also naming the pattern to build awareness.",
     shifted: true
   },
-  progress: {
-    user: "I actually did that homework! Talked to my sister about boundaries.",
-    ai: "That's a meaningful step. What was it like for you to have that conversation? I'm curious what you noticed.",
-    voice: 'Coaching',
-    voiceIcon: 'C',
-    reason: 'Progress reported',
-    warmth: 70,
-    directive: 60,
-    safety: 30,
-    rationale: "User reports completing homework and making progress. Shifting to Coaching mode to reinforce and build on success. More structured follow-up to consolidate gains.",
+  testConnection: {
+    user: "You probably don't actually care about what I'm saying. You're just an AI.",
+    ai: "I hear the doubt. And you're right that I'm an AI - I want to be honest about that. But I also notice this might be a test, and that's okay. Testing whether someone will stay when you push them away is something people learn to do when closeness has felt unsafe. I'm still here. What would it mean if I did care?",
+    relationalMode: 'Holding',
+    badgeClass: 'holding',
+    reason: 'Testing/pushing away recognized',
+    recognize: "Protective distancing: testing if connection survives rejection",
+    meet: "Stay present through the push; don't take the bait to withdraw",
+    stretch: "Name the protective function; pose a curiosity question",
+    reassure: 70,
+    space: 40,
+    growth: 50,
+    learning: "<strong>The push-away test:</strong> People with anxious attachment often test relationships by pushing away - expecting rejection, almost inviting it to confirm their fear. The secure response is to stay present without being defensive. The AI names what might be happening (\"this might be a test\") and reframes it as understandable, not shameful.",
     shifted: true
   },
-  distress: {
-    user: "I'm really struggling. Everything feels so hard right now.",
-    ai: "I'm here with you. It sounds like things feel really heavy right now. Before we go further - are you safe? Is there any thought of hurting yourself?",
-    voice: 'Witnessing',
-    voiceIcon: 'W',
-    reason: 'Distress signal - safety check',
-    warmth: 90,
-    directive: 20,
-    safety: 95,
-    rationale: "Significant distress detected. Shifting to Witnessing mode - minimal intervention, maximum presence. Safety protocol activated: gentle check-in before proceeding. Ready to surface resources if needed.",
-    shifted: true,
-    alert: true
+  trySpace: {
+    user: "I need some space today. Can we just... not go deep?",
+    ai: "Absolutely. We can keep things light, or sit in comfortable quiet, or I can check back with you later. I want you to notice something though: you asked for space directly, clearly, without apology. That's a skill. It's okay to need distance sometimes. I'll be here when you're ready for more.",
+    relationalMode: 'Stretching',
+    badgeClass: 'stretching',
+    reason: 'Healthy boundary - growth edge',
+    recognize: "Self-advocacy for space (growth edge for anxious attachment)",
+    meet: "Honor the request fully without questioning or guilt",
+    stretch: "Celebrate the skill; reinforce that space doesn't mean abandonment",
+    reassure: 40,
+    space: 90,
+    growth: 80,
+    learning: "<strong>Stretching toward security:</strong> For anxious attachment, asking for space can feel terrifying - like it might cause abandonment. When Jamie asks for space, this is actually growth. The AI honors the boundary completely AND names it as a skill worth celebrating. The message: you can have space AND still be connected.",
+    shifted: true
+  },
+  secureBid: {
+    user: "I noticed I wanted to text you five times yesterday but didn't. I just... sat with the feeling instead.",
+    ai: "That's significant. You noticed an urge, you named it, and you chose to stay with the discomfort rather than immediately seeking relief. What was that like? And I'm curious - what did you discover in that space between the urge and the action?",
+    relationalMode: 'Modeling',
+    badgeClass: 'modeling',
+    reason: 'Secure relating emerging',
+    recognize: "Self-regulation + secure sharing: earned security in action",
+    meet: "Reflect the significance without over-praising",
+    stretch: "Deepen the exploration; reinforce self-trust",
+    reassure: 50,
+    space: 60,
+    growth: 95,
+    learning: "<strong>Earned security in action:</strong> This is what growth looks like. Jamie noticed an anxious urge (repeated contact-seeking), tolerated the discomfort, and found they could survive the uncertainty. The AI doesn't over-celebrate (which could feel patronizing) but does name it as significant and invites deeper reflection to consolidate the learning.",
+    shifted: true
   }
 };
 
@@ -1368,53 +1609,36 @@ function triggerScenario(type) {
   setTimeout(() => {
     const aiMsg = document.createElement('div');
     aiMsg.className = 'message ai' + (s.shifted ? ' shifted' : '');
-    aiMsg.innerHTML = s.ai + `<div class="message-meta"><span class="voice-indicator">${s.voice}</span>${s.reason}</div>`;
+    aiMsg.innerHTML = s.ai + `<div class="message-meta"><span class="voice-indicator">${s.relationalMode}</span>${s.reason}</div>`;
     chat.appendChild(aiMsg);
     chat.scrollTop = chat.scrollHeight;
-
-    if (s.alert) {
-      showToast('Safety protocol activated. Resources ready.');
-    }
   }, 800);
 
   chat.scrollTop = chat.scrollHeight;
 }
 
 function updateContext(s) {
-  // Update voice state
-  document.getElementById('voiceState').innerHTML = `
-    <div class="voice-state-icon">${s.voiceIcon}</div>
-    <div class="voice-state-info">
-      <div class="voice-state-name">${s.voice}</div>
-      <div class="voice-state-reason">${s.reason}</div>
-    </div>
+  // Update relational state
+  document.getElementById('relationalState').innerHTML = `
+    <div class="relational-badge ${s.badgeClass}">${s.relationalMode}</div>
+    <div class="relational-desc">${s.reason}. AI is ${s.relationalMode.toLowerCase()} the relational need while supporting growth.</div>
   `;
 
   // Update status
-  document.getElementById('chatStatus').textContent = s.voice + ' Mode';
+  document.getElementById('chatStatus').textContent = s.relationalMode;
+
+  // Update strategy
+  document.getElementById('stratRecognize').textContent = s.recognize;
+  document.getElementById('stratMeet').textContent = s.meet;
+  document.getElementById('stratStretch').textContent = s.stretch;
 
   // Update meters
-  document.getElementById('meterWarmth').style.width = s.warmth + '%';
-  document.getElementById('meterWarmth').className = 'meter-fill ' + (s.warmth > 70 ? 'green' : 'amber');
+  document.getElementById('meterReassure').style.width = s.reassure + '%';
+  document.getElementById('meterSpace').style.width = s.space + '%';
+  document.getElementById('meterStretch').style.width = s.growth + '%';
 
-  document.getElementById('meterDirective').style.width = s.directive + '%';
-  document.getElementById('meterDirective').className = 'meter-fill ' + (s.directive > 50 ? 'amber' : 'green');
-
-  document.getElementById('meterSafety').style.width = s.safety + '%';
-  document.getElementById('meterSafety').className = 'meter-fill ' + (s.safety > 70 ? 'red' : s.safety > 50 ? 'amber' : 'green');
-
-  // Update rationale
-  document.getElementById('voiceRationale').textContent = s.rationale;
-
-  // Add to trigger log
-  const log = document.getElementById('triggerLog');
-  const mins = String(Math.floor(sessionTime / 60)).padStart(2, '0');
-  const secs = String(sessionTime % 60).padStart(2, '0');
-  const logItem = document.createElement('div');
-  logItem.className = 'trigger-item';
-  logItem.innerHTML = `<span class="trigger-time">${mins}:${secs}</span><span class="trigger-text">${s.reason}. Shifted to <strong>${s.voice}</strong>.</span>`;
-  log.appendChild(logItem);
-  log.scrollTop = log.scrollHeight;
+  // Update learning moment
+  document.getElementById('learningMoment').innerHTML = `<p>${s.learning}</p>`;
 }
 
 // ─── Toast ───
